@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: prompt-manager-db
+    restart: always
+    environment:
+      POSTGRES_DB: prompt_manager
+      POSTGRES_USER: anurag_admin
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5434:5432"
+    volumes:
+      - prompt_manager_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: prompt-manager-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+    ports:
+      - "8081:80"
+    depends_on:
+      - postgres
+
+volumes:
+  prompt_manager_data:
